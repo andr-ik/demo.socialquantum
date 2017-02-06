@@ -1,0 +1,18 @@
+{
+  "name": "demo.socialquantum",
+  "version": "0.0.1",
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components"
+  ],
+  "dependencies": {
+    "bootstrap": "~3.3.6",
+    "angular": "~1.5",
+    "restangular": "~1.5.1",
+    "angular-ui-router": "~1.0"
+  },
+  "resolutions": {
+    "angular": "~1.5"
+  }
+}
