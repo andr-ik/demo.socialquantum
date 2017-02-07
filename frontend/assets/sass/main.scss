@@ -1,0 +1,35 @@
+html{
+  height: 100%;
+}
+body{
+  padding-top: 50px;
+  height: 100%;
+}
+.main-container{
+  position: relative;
+  height: 100%;
+}
+.main-template{
+  width: 90%;
+  height: 50%;
+  overflow: auto;
+  margin: auto;
+  position: absolute;
+  top: 0;
+  left: 0;
+  bottom: 0;
+  right: 0;
+  padding: 4px;
+  opacity: 0;
+  transition: all 200ms ease-in-out;
+  background: rgba(238, 238, 238, 0.4);
+}
+
+.main-table{
+  margin-bottom: 4px;
+
+  td {
+    width: 25%;
+    vertical-align: middle !important;
+  }
+}

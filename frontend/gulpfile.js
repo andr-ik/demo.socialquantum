@@ -114,7 +114,8 @@ gulp.task('watch', ['compiler'], function(){
             'web/js/main.min.js',
             'web/js/vendor.min.js',
             'web/css/main.min.css',
-            'web/css/vendor.min.css'
+            'web/css/vendor.min.css',
+            'web/index.html'
         ]
     });
     gulp.watch('./web/templates/**/*.html',['template']);

@@ -34,9 +34,6 @@
         </div>
         <div id="navbar" class="collapse navbar-collapse">
             <ul class="nav navbar-nav">
-                <li><a href="#" class="menu-item" data-index="1">1</a></li>
-                <li><a href="#" class="menu-item" data-index="2">2</a></li>
-                <li><a href="#" class="menu-item" data-index="3">3</a></li>
             </ul>
             <ul class="nav navbar-nav navbar-right">
                 <li><a href="https://github.com/andr-ik" target="_blank">Михайлов Андрей</a></li>
@@ -45,9 +42,59 @@
     </div>
 </nav>
 
-<div class="container">
-    <div class="starter-template">
+<div class="main-container" ng-controller="MainController">
+    <div class="main-template">
+        <div ng-controller="PeopleTableController">
+            <table class="main-table table table-bordered table-hover table-condensed">
+                <tr>
+                    <td>ФИО</td>
+                    <td>Телефон</td>
+                    <td>Страна</td>
+                    <td></td>
+                </tr>
+                <tr>
+                    <td><input type="text" ng-model="search.name" class="form-control"></td>
+                    <td><input type="text" ng-model="search.phone" class="form-control"></td>
+                    <td><select ng-model="search.country" ng-options="s as s.title for s in countries" class="form-control">
+                        <option value=""></option>
+                    </select></td>
+                    <td></td>
+                </tr>
+                <tr ng-repeat="(index, people) in filterPeoples(peoples) track by index">
+                    <td>
+                        <span editable-text="people.name" e-name="name" e-form="rowform" onbeforesave="checkName($data, people.id)">
+                          {{ people.name || 'empty' }}
+                        </span>
+                    </td>
+                    <td>
+                        <span editable-text="people.phone" e-name="phone" e-form="rowform" onbeforesave="checkPhone($data, people.id)">
+                          {{ people.phone || 'empty' }}
+                        </span>
+                    </td>
+                    <td>
+                        <span editable-select="people.country" e-name="country" e-form="rowform" e-ng-options="s as s.title for s in countries" onbeforesave="checkCountry($data, people.id)">
+                            {{ showCountry(people) }}
+                        </span>
+                    </td>
+                    <td style="white-space: nowrap">
+                        <form editable-form name="rowform" onbeforesave="savePeople($data)" ng-show="rowform.$visible" class="form-buttons form-inline" shown="inserted == people">
+                            <button type="submit" ng-disabled="rowform.$waiting" class="btn btn-primary">
+                                Сохр.
+                            </button>
+                            <button type="button" ng-disabled="rowform.$waiting" ng-click="rowform.$cancel()" class="btn btn-default">
+                                Отм.
+                            </button>
+                        </form>
+                        <div class="buttons" ng-show="!rowform.$visible">
+                            <button type="button" class="btn btn-primary" ng-click="rowform.$show()">Ред.</button>
+                            <button type="button" class="btn btn-danger" ng-click="removePeople(index, people)">Удал.</button>
+                        </div>
+                    </td>
+                </tr>
+            </table>
 
+            <button type="button" class="btn btn-default btn-success" ng-click="addPeople()">Добавить</button>
+        </div>
     </div>
 </div>
 
@@ -58,7 +105,9 @@
 <script src="/js/main.min.js"></script>
 
 <script id="__bs_script__">//<![CDATA[
-document.write("<script async src='http://localhost:3000/browser-sync/browser-sync-client.js'><\/script>".replace("HOST", location.hostname));
+if(GlobalConfig && !GlobalConfig.isProduction) {
+    document.write("<script async src='http://localhost:3000/browser-sync/browser-sync-client.js'><\/script>".replace("HOST", location.hostname));
+}
 //]]></script>
 
 </body>

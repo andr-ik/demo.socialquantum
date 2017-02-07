@@ -1,10 +1,10 @@
 <?php
 namespace api\controllers;
 
+use api\controllers\base\BaseActiveController;
 use common\models\People;
-use yii\rest\ActiveController;
 
-class PeopleController extends ActiveController
+class PeopleController extends BaseActiveController
 {
     public function init()
     {

@@ -79,6 +79,7 @@ class People extends \yii\db\ActiveRecord
     public function fields()
     {
         return [
+            'id',
             'name',
             'phone',
             'country',
