@@ -47,9 +47,9 @@
         <div ng-controller="PeopleTableController">
             <table class="main-table table table-bordered table-hover table-condensed">
                 <tr>
-                    <td>ФИО</td>
-                    <td>Телефон</td>
-                    <td>Страна</td>
+                    <td><a href="#" ng-click="setSort('name')">ФИО</a></td>
+                    <td><a href="#" ng-click="setSort('phone')">Телефон</a></td>
+                    <td><a href="#" ng-click="setSort('country')">Страна</a></td>
                     <td></td>
                 </tr>
                 <tr>
@@ -60,15 +60,15 @@
                     </select></td>
                     <td></td>
                 </tr>
-                <tr ng-repeat="(index, people) in filterPeoples(peoples) track by index">
+                <tr ng-repeat="(index, people) in filterAndSortPeoples(peoples) track by index">
                     <td>
                         <span editable-text="people.name" e-name="name" e-form="rowform" onbeforesave="checkName($data, people.id)">
                           {{ people.name || 'empty' }}
                         </span>
                     </td>
                     <td>
-                        <span editable-text="people.phone" e-name="phone" e-form="rowform" onbeforesave="checkPhone($data, people.id)">
-                          {{ people.phone || 'empty' }}
+                        <span editable-text="people.phone" e-name="phone" e-form="rowform" onbeforesave="checkPhone($data, people.id)" e-ui-mask="+7(999)999-9999">
+                          {{ showPhone(people) }}
                         </span>
                     </td>
                     <td>
@@ -77,7 +77,7 @@
                         </span>
                     </td>
                     <td style="white-space: nowrap">
-                        <form editable-form name="rowform" onbeforesave="savePeople($data)" ng-show="rowform.$visible" class="form-buttons form-inline" shown="inserted == people">
+                        <form editable-form name="rowform" onbeforesave="savePeople($data, people.id)" ng-show="rowform.$visible" class="form-buttons form-inline" shown="inserted == people">
                             <button type="submit" ng-disabled="rowform.$waiting" class="btn btn-primary">
                                 Сохр.
                             </button>

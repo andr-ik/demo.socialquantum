@@ -11,7 +11,8 @@ angular
     .module('app', [
         'templates',
         'restangular',
-        'xeditable'
+        'xeditable',
+        'ui.mask'
     ])
     .config(function(RestangularProvider){
         RestangularProvider.setBaseUrl(GlobalConfig.apiBaseUrl);
